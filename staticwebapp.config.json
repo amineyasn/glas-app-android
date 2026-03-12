@@ -1,7 +1,4 @@
 {
-  "mimeTypes": {
-    ".apk": "application/vnd.android.package-archive"
-  },
   "responseOverrides": {
     "404": {
       "rewrite": "/index.html"
