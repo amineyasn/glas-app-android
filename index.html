@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glas — Download</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf8f5;
+      --ink:   #111110;
+      --muted: #8a8782;
+      --rule:  #dedad5;
+      --accent:#1a1a18;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'EB Garamond', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── layout ── */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: clamp(2rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* ── hero ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 0;
+      animation: fadeUp .9s cubic-bezier(.22,.6,.36,1) both;
+    }
+
+    /* wordmark */
+    .wordmark {
+      font-size: clamp(5rem, 18vw, 13rem);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      line-height: 1;
+      color: var(--ink);
+      user-select: none;
+    }
+
+    .rule {
+      width: 2px;
+      height: clamp(2.5rem, 5vw, 4rem);
+      background: var(--rule);
+      margin: clamp(1.5rem, 3vw, 2.5rem) auto;
+    }
+
+    .tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    /* download card */
+    .card {
+      border: 1px solid var(--rule);
+      padding: clamp(1.8rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+      max-width: 420px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      background: #fff;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border: 1px solid var(--rule);
+      pointer-events: none;
+      opacity: .5;
+    }
+
+    .platform-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: .8rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+
+    .platform-label::before,
+    .platform-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* android icon */
+    .android-icon {
+      display: block;
+      margin: 0 auto 1.6rem;
+      opacity: .85;
+    }
+
+    .card-title {
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      font-weight: 400;
+      margin-bottom: .4rem;
+      letter-spacing: -.01em;
+    }
+
+    .card-sub {
+      font-size: .95rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+
+    /* download button */
+    .btn-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background .25s, transform .15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-download::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.07);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .btn-download:hover { background: #2a2a28; }
+    .btn-download:hover::after { opacity: 1; }
+    .btn-download:active { transform: scale(.985); }
+
+    .btn-download svg { flex-shrink: 0; }
+
+    /* steps */
+    .steps {
+      margin-top: 2rem;
+      border-top: 1px solid var(--rule);
+      padding-top: 1.5rem;
+      text-align: left;
+    }
+
+    .steps-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .75rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .steps ol {
+      list-style: none;
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      gap: .75rem;
+      align-items: flex-start;
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      background: var(--rule);
+      color: var(--ink);
+      width: 1.4rem;
+      height: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: .05rem;
+    }
+
+    /* footer */
+    .footer {
+      text-align: center;
+      padding-top: 3rem;
+      font-size: .8rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--rule);
+      animation: fadeUp .9s .3s cubic-bezier(.22,.6,.36,1) both;
+    }
+
+    /* animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* success toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(6rem);
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      padding: .75rem 1.5rem;
+      white-space: nowrap;
+      transition: transform .4s cubic-bezier(.22,.6,.36,1), opacity .3s;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 99;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="hero">
+
+      <h1 class="wordmark">gla<span style="text-decoration:overline;text-decoration-thickness:1px;">s</span></h1>
+
+      <div class="rule"></div>
+
+      <p class="tagline">Mobile Application</p>
+
+      <div class="card">
+        <div class="platform-label">Android</div>
+
+        <!-- Android robot icon -->
+        <svg class="android-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18V10H18V18C18 19.1 17.1 20 16 20H8C6.9 20 6 19.1 6 18Z" stroke="#111110" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M15 10V7C15 5.3 13.7 4 12 4C10.3 4 9 5.3 9 7V10" stroke="#111110" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="10" cy="7" r=".6" fill="#111110"/>
+          <circle cx="14" cy="7" r=".6" fill="#111110"/>
+          <path d="M4 12H6" stroke="#111110" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M18 12H20" stroke="#111110" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M10 23V20" stroke="#111110" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M14 23V20" stroke="#111110" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M7.5 3.5L9 5.5" stroke="#111110" stroke-width="1" stroke-linecap="round"/>
+          <path d="M16.5 3.5L15 5.5" stroke="#111110" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+
+        <h2 class="card-title">Download Glas</h2>
+        <p class="card-sub">Latest release &mdash; Android APK</p>
+
+        <a class="btn-download" href="Glas.apk" download="Glas.apk" id="downloadBtn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 1v9M4 7l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download APK
+        </a>
+
+        <div class="steps">
+          <p class="steps-title">Installation guide</p>
+          <ol>
+            <li>Download the APK file to your Android device.</li>
+            <li>Open <em>Settings → Security</em> and enable <strong>Install unknown apps</strong> for your browser or file manager.</li>
+            <li>Locate the downloaded file and tap it to begin installation.</li>
+            <li>Follow the on-screen prompts and launch Glas.</li>
+          </ol>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      &copy; <span id="yr"></span> Glas &nbsp;&middot;&nbsp; All rights reserved
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">Download started &mdash; check your downloads</div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    });
+  </script>
+</body>
+</html>
